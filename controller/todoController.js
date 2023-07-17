@@ -32,8 +32,32 @@ const updateTodo = async (req, res) => {
     }
 }
 
+const updateCompleted = async (req, res) => {
+    try {
+        const { id } = req.params
+        const updateCompleted = await Todo.findOneAndUpdate({ _id: id }, req.body, { new: true })
+        res.status(200).json({ success: true, data: updateCompleted})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, message: error.message })
+    }
+}
+
+const deleteTodo = async (req, res) => {
+    try {
+        const { id } = req.params
+        const updateCompleted = await Todo.findOneAndDelete({ _id: id })
+        res.status(200).json({ success: true, data: updateCompleted})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, message: error.message }) 
+    }
+}
+
 module.exports = {
     allTodos,
     createTodo,
-    updateTodo
+    updateTodo,
+    updateCompleted,
+    deleteTodo
 }
