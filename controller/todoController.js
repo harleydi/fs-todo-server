@@ -35,7 +35,7 @@ const updateTodo = async (req, res) => {
 const updateCompleted = async (req, res) => {
     try {
         const { id } = req.params
-        const updateCompleted = await Todo.findOneAndUpdate({ _id: id }, req.body, { new: true })
+        const updateCompleted = await Todo.findOneAndUpdate({ _id: id }, { isComplete: !Todo.isComplete })
         res.status(200).json({ success: true, data: updateCompleted})
     } catch (error) {
         console.log(error)
